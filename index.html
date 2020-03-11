@@ -314,14 +314,14 @@ The above copyright notice and this permission notice shall be included in all c
               document.getElementById("cid").innerHTML=data.cid
               document.getElementById("time").innerHTML=data.time
                 Swal.fire({
-          title: `FIle Uploaded`,
-          content: "Welcome to the Future!",
+          title: `File Uploaded`,
+          text: "Welcome to the Future!, with Pebble DLT",
           icon:"success"
           })
         }).catch((err)=>{
           Swal.fire({
           title: `File Too Big for a demo`,
-          content: "We accept Files less than 1-MB for demonstration purposes",
+          text: "We accept Files less than 1-MB for demonstration purposes",
           icon:"error"
           })
         })

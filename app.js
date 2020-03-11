@@ -54,22 +54,37 @@ app.post('/upload', function(req, res) {
 
 app.post('/download',(req,res)=>{
   let searchCID=req.body.searchName
-  getfile(searchCID)
+  let content=getfile(searchCID)
+  console.log(content)
 
 })
 
 //ipfs gateway
 
 //to download from ipfs
-async function getfile(cid){
-  for await(const file of ipfs_gateway.get(cid)){
+// async function getfile(cid){
+//   for await(const file of ipfs_api.files.get(cid)){
+//     console.log(file.path)
+//     const content=new BufferList()
+//     for await(const chunk of file.content){
+//       content.append(chunk)
+//     }
+//     console.log(content.toString())
+//     return content
+//   }
+// }
+
+async function getfile(validCID){
+  for await (const file of ipfs_api.get(validCID)) {
     console.log(file.path)
-    const content=new BufferList()
-    for await(const chunk of file.content){
+    const content = new BufferList()
+    for await (const chunk of file.content) {
       content.append(chunk)
     }
     console.log(content.toString())
   }
+
+
 }
 
 //to upload to ipfs
