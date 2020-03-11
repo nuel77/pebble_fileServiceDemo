@@ -14,7 +14,7 @@ const client = new services.workerClient(
 )
 var stream=require('stream')
 var http = require('http').createServer(app);
-const {BufferList}=require('bl')
+const {BufferListStream }=require('bl')
 
 
 //ipfs variables 
@@ -68,16 +68,12 @@ app.post('/download',(req,res)=>{
   let searchCID=req.body.searchName
 
   getfile(searchCID,(fileContents)=>{ 
-
-
     getGautham(searchCID,(response)=>{
       let currentState = response.getCurrentstate()
       currentState=Buffer.from(currentState, 'base64').toString()
-      var readStream = new stream.PassThrough();
-    readStream.end(fileContents);
     res.set('Content-disposition', 'attachment; filename=' + currentState["filename"]);
     res.set('Content-Type', currentState["contentType"]);
-    readStream.pipe(res);
+    fileContents.pipe(res)
     })
 
   })
@@ -88,15 +84,15 @@ app.post('/download',(req,res)=>{
 
 
 async function getfile(validCID,callback){
-  for await (const file of ipfs_api.cat(validCID)) {
+  for await (const file of ipfs_api.get(validCID)) {
     console.log(file.path)
-    const content =[]
+    const content = new BufferListStream()
     for await (const chunk of file.content) {
-      content.push(chunk)
+      content.append(chunk)
     }
     // let buff=Buffer.concat(content)
     //console.log(content.type)
-    return callback(Buffer.concat(content))
+    return callback(content)
   }
 
 
