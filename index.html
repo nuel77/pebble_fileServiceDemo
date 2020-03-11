@@ -275,17 +275,20 @@ The above copyright notice and this permission notice shall be included in all c
     //submitting the file to node.js server
     document.getElementById("form").addEventListener('submit',(e)=>{
       e.preventDefault()
+      
       const formData=new FormData()
       formData.append('foo',fileUpload.files[0])
       fetch('/upload',{
         method:'post',
         body:formData
-      }).then((res) => res.text())  
+      }).then((res) => res.json())  
             .then((data) =>  {
-               console.log(data)
+              console.log(data)          
+              document.getElementById("cid").innerHTML=data.cid
+              document.getElementById("time").innerHTML=data.time
                 Swal.fire({
           title: `FIle Uploaded`,
-          Content: "Welcome to the Future!",
+          content: "Welcome to the Future!",
           icon:"success"
           })
         }).catch(console.error)
@@ -294,18 +297,7 @@ The above copyright notice and this permission notice shall be included in all c
     })
     
 
-    function getvalues(){
-
-              timerid=setInterval(()=>{
-                fetch("/results").then((res)=>{
-                
-                    res.json().then(stuff=>{
-                        document.getElementById("cid").innerHTML=stuff.cid
-                        document.getElementById("time").innerHTML=stuff.time
-                    })
-                })
-              },1000)
-            }
+ 
 
 
  

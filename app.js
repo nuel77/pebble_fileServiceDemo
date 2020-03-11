@@ -39,25 +39,22 @@ app.use(bodyParser({defer: true}));
 
 
 app.post('/upload', function(req, res) {
-  let total_len=req.headers["content-length"]
-  console.log(total_len)
-  req.on('data',function (chunk){
-    console.log("chunk is here")
-  })
+  
+  
   
   console.log(req.files.foo); // the uploaded file object
   files1=[{
     path:req.files.foo.name,
     content:req.files.foo.data
   }] 
-  addf(files1);
-  res.send("done")
+  
+  addf(files1,(val)=>{
+      res.send(val)
+  });
+  
 });
 
-var stuff={
-  cid:"",
-  time:""
-}
+
 
 //ipfs gateway
 
@@ -74,7 +71,11 @@ async function getfile(cid){
 }
 
 //to upload to ipfs
-async function addf(filepath){
+async function addf(filepath,callback){
+  var stuff={
+    cid:"",
+    time:""
+  }
   try{
   
     for await(const result of ipfs_api.add(filepath)){
@@ -95,23 +96,17 @@ async function addf(filepath){
 
       callGautham(encmultivalue.toString(),linuxDate.toString())
       console.log(new Date().getTime())
-
-    
-   
-       
+      console.log(stuff)
+      return callback(stuff)
     }
   
   }catch(e){
     console.log(e)
-    return e
+    
   }
-  app.get("/results",(req,res)=>{
-    res.send(stuff)
-  })
+  
 
 }
-
-
 
 //calling the grpc 
 function callGautham(cid,datetime){
