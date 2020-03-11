@@ -35,13 +35,8 @@ app.get("/fetch",(req,res)=>{
  //file uploads
 ============================================================ */
 app.use(bodyParser({defer: true}));
-
-
-
 app.post('/upload', function(req, res) {
-  
-  
-  
+
   console.log(req.files.foo); // the uploaded file object
   files1=[{
     path:req.files.foo.name,
@@ -49,12 +44,19 @@ app.post('/upload', function(req, res) {
   }] 
   
   addf(files1,(val)=>{
+      val.name=req.files.foo.name
       res.send(val)
   });
   
 });
 
+//file download path
 
+app.post('/download',(req,res)=>{
+  let searchCID=req.body.searchName
+  getfile(searchCID)
+
+})
 
 //ipfs gateway
 
