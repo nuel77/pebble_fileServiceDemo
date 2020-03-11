@@ -140,14 +140,19 @@ async function addf(filepath,callback,filename,contentType){
 async function getGautham(cid,callback){
   const request = new dataStr.addressCreation()
   console.log(cid)
-  console.log(typof(cid))
+  console.log(typeof(cid))
   request.setAuthpublickey(cid)
   request.setContractid("DEMO")
   request.setChannelid("PEBBLE_INC")
   request.setUniqueIdentifier("")
+  const client = new services.workerClient(
+    'localhost:50051',
+      grpc.credentials.createInsecure()
+  )
   client.getAddressData(request,(error,response)=>{
     if(!error){
         console.log(response);
+        // client.close()
         return callback(response)
     }else{
         console.log(error)
@@ -157,6 +162,10 @@ async function getGautham(cid,callback){
 
 //calling the grpc 
 function callGautham(cid,datetime,filename,contentType,callback){
+  const client = new services.workerClient(
+    'localhost:50051',
+      grpc.credentials.createInsecure()
+  )
   let currentState = {
     "filename":filename,
     "time":datetime,
