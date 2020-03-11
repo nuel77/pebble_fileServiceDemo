@@ -71,11 +71,11 @@ app.post('/download',(req,res)=>{
     getGautham(searchCID,(response)=>{
       let currentState = response.getCurrentstate()     
       currentState=Buffer.from(currentState, 'base64').toString()
-      console.log(JSON.parse(currentState))
+      console.log(JSON.parse(currentState)["contentType"])
 
     res.set('Content-disposition', 'attachment; filename=' + currentState["filename"]);
     res.set('Content-Type', currentState["contentType"]);
-    console.log(res)
+    //console.log(res)
     fileContents.on('end',()=>res.end())
     fileContents.pipe(res)
     })
