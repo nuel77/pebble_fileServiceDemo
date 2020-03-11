@@ -6,8 +6,8 @@ var expressFileupload = require("express-fileupload")
 const bs58=require('bs58')
 const grpc = require('grpc');
 const pebble_server="3.6.193.80"
-const services = require('../vaillla_file/server/worker_grpc_pb')
-const dataStr = require('../vaillla_file/server/worker_pb')
+const services = require('../node/server/worker_grpc_pb')
+const dataStr = require('../node/server/worker_pb')
 const client = new services.workerClient(
   'localhost:50051',
     grpc.credentials.createInsecure()
@@ -69,8 +69,9 @@ app.post('/download',(req,res)=>{
 
   getfile(searchCID,(fileContents)=>{ 
     getGautham(searchCID,(response)=>{
-      let currentState = response.getCurrentstate()
+      let currentState = response.getCurrentstate()     
       currentState=Buffer.from(currentState, 'base64').toString()
+      console.log(JSON.parse(currentState))
     res.set('Content-disposition', 'attachment; filename=' + currentState["filename"]);
     res.set('Content-Type', currentState["contentType"]);
     fileContents.pipe(res)
@@ -151,7 +152,7 @@ async function getGautham(cid,callback){
   )
   client.getAddressData(request,(error,response)=>{
     if(!error){
-        console.log(response);
+        
         // client.close()
         return callback(response)
     }else{
