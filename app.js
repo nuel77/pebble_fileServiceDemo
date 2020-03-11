@@ -14,6 +14,7 @@ const client = new services.workerClient(
 )
 var stream=require('stream')
 var http = require('http').createServer(app);
+const {BufferList}=require('bl')
 
 
 //ipfs variables 
@@ -100,9 +101,9 @@ app.post('/download',(req,res)=>{
 async function getfile(validCID,callback){
   for await (const file of ipfs_api.get(validCID)) {
     console.log(file.path)
-    const content = new BufferList()
+    const content =[]
     for await (const chunk of file.content) {
-      content.append(chunk)
+      content.push(chunk)
     }
     let buff=Buffer.concat(content)
     console.log(content.type)
