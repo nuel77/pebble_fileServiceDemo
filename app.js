@@ -76,6 +76,7 @@ app.post('/download',(req,res)=>{
     res.set('Content-disposition', 'attachment; filename=' + currentState["filename"]);
     res.set('Content-Type', currentState["contentType"]);
     console.log(res)
+    fileContents.on('end',()=>res.end())
     fileContents.pipe(res)
     })
 
