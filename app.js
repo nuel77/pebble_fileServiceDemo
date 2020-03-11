@@ -104,8 +104,9 @@ async function getfile(validCID,callback){
     for await (const chunk of file.content) {
       content.append(chunk)
     }
+    let buff=Buffer.concat(content)
     console.log(content.type)
-    return callback(content)
+    return callback(buff)
   }
 
 
