@@ -5,14 +5,19 @@ const BufferList = require('bl/BufferList');
 var expressFileupload = require("express-fileupload")
 const bs58=require('bs58')
 const grpc = require('grpc');
+const pebble_server="3.6.193.80"
 const services = require('../vaillla_file/server/worker_grpc_pb')
 const dataStr = require('../vaillla_file/server/worker_pb')
-
+const client = new services.workerClient(
+  'localhost:50051',
+    grpc.credentials.createInsecure()
+)
+var stream=require('stream')
 var http = require('http').createServer(app);
 
 
 //ipfs variables 
-const pebble_server="3.6.193.80"
+
 const ipfs_gateway =ipfsClient('/ip4/'+pebble_server+'/tcp/8080')
 const ipfs_api = ipfsClient('/ip4/'+pebble_server+'/tcp/5001')
 
@@ -42,11 +47,17 @@ app.post('/upload', function(req, res) {
     path:req.files.foo.name,
     content:req.files.foo.data
   }] 
-  
+  let filename=req.files.foo.name
+  let contentType=req.files.foo.mimetype
+
+  console.log(filename)
+  console.log(contentType)
+
   addf(files1,(val)=>{
       val.name=req.files.foo.name
       res.send(val)
-  });
+  },filename,contentType);
+  
   
 });
 
@@ -54,8 +65,20 @@ app.post('/upload', function(req, res) {
 
 app.post('/download',(req,res)=>{
   let searchCID=req.body.searchName
-  let content=getfile(searchCID)
-  console.log(content)
+
+  getfile(searchCID,(fileContents)=>{ 
+    getGautham(searchCID,(response)=>{
+      let currentState = response.getCurrentstate()
+      currentState=Buffer.from(currentState, 'base64').toString()
+      var readStream = new stream.PassThrough();
+    readStream.end(fileContents);
+    res.set('Content-disposition', 'attachment; filename=' + currentState["filename"]);
+    res.set('Content-Type', currentState["contentType"]);
+    readStream.pipe(res);
+    })
+
+  })
+  
 
 })
 
@@ -74,21 +97,22 @@ app.post('/download',(req,res)=>{
 //   }
 // }
 
-async function getfile(validCID){
+async function getfile(validCID,callback){
   for await (const file of ipfs_api.get(validCID)) {
     console.log(file.path)
     const content = new BufferList()
     for await (const chunk of file.content) {
       content.append(chunk)
     }
-    console.log(content.toString())
+    console.log(content.type)
+    return callback(content)
   }
 
 
 }
 
 //to upload to ipfs
-async function addf(filepath,callback){
+async function addf(filepath,callback,filename,contentType){
   var stuff={
     cid:"",
     time:""
@@ -111,7 +135,9 @@ async function addf(filepath,callback){
 
       stuff.time=currTime;
 
-      callGautham(encmultivalue.toString(),linuxDate.toString())
+      callGautham(encmultivalue.toString(),linuxDate.toString(),filename,contentType,(addr)=>{
+        stuff.addr=addr;
+      })
       console.log(new Date().getTime())
       console.log(stuff)
       return callback(stuff)
@@ -124,23 +150,41 @@ async function addf(filepath,callback){
   
 
 }
+async function getGautham(cid,callback){
+  const request = new dataStr.addressCreation()
+  request.setAuthpublickey(cid)
+  request.setContractid("DEMO")
+  request.setChannelid("PEBBLE_INC")
+  request.setUniqueIdentifier("")
+  client.getAddressData(request,(error,response)=>{
+    if(!error){
+        console.log(response);
+        return callback(response)
+    }else{
+        console.log(error)
+    }
+})
+}
 
 //calling the grpc 
-function callGautham(cid,datetime){
-  const client = new services.workerClient(
-      'localhost:50051',
-      grpc.credentials.createInsecure()
-  )
-
+function callGautham(cid,datetime,filename,contentType,callback){
+  let currentState = {
+    "filename":filename,
+    "time":datetime,
+    "cid":cid,
+    "contentType":contentType
+  }
   const request = new dataStr.addressCreation()
+  
+  request.setCurrentstate(Buffer.from(JSON.stringify(currentState)).toString('base64'))
   request.setContractid("DEMO")
-  request.setCurrentstate("")
   request.setChannelid("PEBBLE_INC")
-  request.setUniqueIdentifier(datetime)
+  request.setUniqueIdentifier("")
   request.setAuthpublickey(cid)
   client.createAddress(request,(error,response)=>{
       if(!error){
           console.log(response.getStatuscode());
+          return callback(cid)
       }else{
           console.log(error)
       }
