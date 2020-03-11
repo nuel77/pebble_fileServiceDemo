@@ -1,0 +1,315 @@
+<!--
+=========================================================
+ Paper Dashboard 2 - v2.0.0
+=========================================================
+
+ Product Page: https://www.creative-tim.com/product/paper-dashboard-2
+ Copyright 2019 Creative Tim (https://www.creative-tim.com)
+ Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard/blob/master/LICENSE)
+
+ Coded by Creative Tim
+
+=========================================================
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Paper Dashboard 2 by Creative Tim
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <!--modal-->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+          <center> <h4 class="modal-title">WARNING!</h4></center>
+          </div>
+          <div class="modal-body" style="word-break: break-all;">
+            <p>KEEP PRIVATE KEY FILE SAFE</p>
+            <br>
+            <p>Your Private Key is:</p>
+            <br>
+            <p id="model-content"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    <!--end of modal-->
+    <div class="sidebar" data-color="white" data-active-color="primary">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        
+        
+        <a href="" class="simple-text logo-normal" ><center>Pebble</center>
+          <!-- <div class="logo-image-big">
+            <img src="../assets/img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          
+          <li class="active ">
+            <a href="./user.html">
+              <i class="nc-icon nc-single-02"></i>
+              <p>Demo</p>
+            </a>
+          </li>
+         
+         
+          <li class="active-pro">
+            <a href="./upgrade.html">
+              <i ></i>
+              <p>Pebble.inc</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#pablo">Pebble Demo</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="nc-icon nc-zoom-split"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              
+            
+              
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <!-- <div class="panel-header panel-header-sm">
+
+
+<content area> -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h5>Introducing The Pebble Network</h5>
+            </div>
+            <div>
+              <p class="pl-3">foia aiej fioew  aeo jewi oij ie fja ij i ie iojiofaj iii i i iewii i ia ii i ioii i io  i ioio i </p>
+            </div>  
+          </div>
+        </div>
+        </div>
+        <div class="row row-eq-height">
+          <!--Treansaction details co-->
+
+          <div class="col-md-6 " >
+            
+            <div class="card card-user">
+              <div class="card-header">
+                <h5 class="card-title"><center>New File Upload</center></h5>
+              </div>
+              <hr style="top: 1px solid lightblue;">
+              <div class="card-body">
+                <form  method='post' id="form" enctype="multipart/form-data">
+                  <div class="row">                  
+                    <div class="col-md-12 pr-1 ">
+                          <div class="custom-file">
+                            <input type="file" name="foo" class="custom-file-input" id="fileUpload" required="required">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                          </div>                
+                      </div>                  
+                  </div>     
+                  <br><br>            
+                  <div class="row pd-3">
+                    <div class="col-md-12 ">
+                      <div class="update ml-auto mr-auto">
+                        <button type="submit" class="btn btn-lg btn-primary btn-block" id="submit">
+                          <i class="fa fa-arrow-right fa-lg"></i>&nbsp;
+                          Upload File 
+                        </button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </form>
+                <div class="card-footer">
+                  <hr>
+                  
+                </div>
+              </div>
+              
+
+            </div>
+          </div>
+
+          <!--Transaction details after complettion
+          -->
+          <div class="col-md-6">
+
+            <div class="card">
+              
+              <div class="card-header">
+                <h4 class="card-title"><center>Last IPFS Uploaded File Details</center></h4>
+              
+              </div>
+              <hr>
+
+              <div class="card-body">
+                
+                <table class="table table-borderless table-striped" >
+                  <tbody>
+                    <tr>
+                      <th class="col-md-4" >CID :</th>
+                      <td  style="color:green; " id="cid">  </td>
+                    
+           
+                    </tr>
+                    <tr>
+                      <th>Time :</th>
+                      <td id='time'> </td>
+                    </tr>
+             
+                  
+              
+                   
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+                <hr>
+                
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+        <!--table of transactions area -->
+        
+        
+      </div>
+ 
+  <!--   Core JS Files   -->
+  <script src="assets/js/core/jquery.min.js"></script>
+  <script src="assets/js/core/popper.min.js"></script>
+  <script src="assets/js/core/bootstrap.min.js"></script>
+  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="app.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+
+  <script language="JavaScript" type="text/javascript" src="ecdsa.js"></script>
+  <script src="assets/demo/demo.js"></script>
+
+  <script>
+
+    //js code to get the name of the file selected in the upload box
+        $(".custom-file-input").on("change", function() {
+      var fileName = $(this).val().split("\\").pop();
+      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+      
+    });
+
+    //submitting the file to node.js server
+    document.getElementById("form").addEventListener('submit',(e)=>{
+      e.preventDefault()
+      const formData=new FormData()
+      formData.append('foo',fileUpload.files[0])
+      fetch('/upload',{
+        method:'post',
+        body:formData
+      }).then((res) => res.text())  
+            .then((data) =>  {
+               console.log(data)
+                Swal.fire({
+          title: `FIle Uploaded`,
+          Content: "Welcome to the Future!",
+          icon:"success"
+          })
+        }).catch(console.error)
+
+      getvalues()
+    })
+    
+
+    function getvalues(){
+
+              timerid=setInterval(()=>{
+                fetch("/results").then((res)=>{
+                
+                    res.json().then(stuff=>{
+                        document.getElementById("cid").innerHTML=stuff.cid
+                        document.getElementById("time").innerHTML=stuff.time
+                    })
+                })
+              },1000)
+            }
+
+
+ 
+  </script>
+</body>
+
+</html>

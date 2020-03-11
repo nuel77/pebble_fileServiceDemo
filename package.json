@@ -1,0 +1,27 @@
+{
+  "name": "vaillla_file",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "base58": "^2.0.1",
+    "body-parser": "^1.19.0",
+    "bs58": "^4.0.1",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "formidable": "^1.2.2",
+    "fs-extra": "^8.1.0",
+    "google-protobuf": "^3.11.4",
+    "grpc": "^1.24.2",
+    "ipfs-api": "^26.1.2",
+    "ipfs-http-client": "^42.0.0",
+    "path": "^0.12.7",
+    "socket.io": "^2.3.0",
+    "sweetalert": "^2.1.2"
+  }
+}

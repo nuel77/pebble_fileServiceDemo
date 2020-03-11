@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="APP">
+<head>
+    <meta charset="UTF-8">
+    <title>angular file upload</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+        <form method='post' action='upload' id="form" enctype="multipart/form-data">
+            <input name="foo" type="file"  id="fileUpload"/>
+        <input type='submit' id='submit' type="submit">
+        <p id="text"></p>
+        <br>
+        </form>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-danger" id='progress' role="progressbar" style="width: 0" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <button id="fetch">heello</button>
+        <button onclick="heyy()">swallll</button>
+      
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script>
+            function heyy(){
+                let timerInterval
+                Swal.fire({
+                title: 'Auto close alert!',
+                html: 'I will close in <b></b> milliseconds.',
+                timer: 5000,
+                timerProgressBar: true,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                        b.textContent = Swal.getTimerLeft()
+                        }
+                    }
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+                }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer')
+                }
+                })
+            }
+
+            // function heyy(){
+            //     let timerInterval
+            //     swal({
+            //         title:'File is uploading...!',
+            //         content:'Please Wait <strong></strong> milliseconds',
+            //         timer:2000,
+            //         icon:'info',
+            //         button:'Run in Background',
+            //         onBeforeOpen: ()=>{
+            //             timerInterval=setInterval(()=>{
+            //                 swal.getContent().querySelector('strong').textContent=swal.getTimerLeft()
+            //             },100)
+            //         },
+            //         onClose: () => {
+            //                 clearInterval(timerInterval)    
+            //                 }
+            //             }).then((result) => {
+            //                 console.log("CLosed ")
+            //                 swal("Done","File Uploaded","success")
+            //     })
+            // }
+
+          
+
+
+           document.getElementById('form').addEventListener('submit', postData);
+
+            function postData(event){
+            event.preventDefault();
+            Swal.showLoading()
+            const formData=new FormData()
+             formData.append('foo',fileUpload.files[0])
+
+           fetch('/upload', {
+               method: 'POST',
+               headers : new Headers(),
+               body:formData
+           }).then((res) => res.text())
+            .then((data) =>  {
+               console.log(data)
+               Swal.fire({
+        title: `FIle Uploaded`,
+        Content: "Welcome to the Future!",
+        icon:"success"
+        })
+        })
+           .catch((err)=>{
+               console.log(err)
+        })
+
+    
+
+
+       }
+
+
+            document.getElementById("submit").addEventListener("click",()=>{
+              timerid=setInterval(()=>{
+                fetch("/results").then((res)=>{
+                
+                    res.json().then(stuff=>{
+                        document.getElementById("text").innerHTML=stuff.cid+" "+stuff.time;
+                    })
+                })
+              },1000)
+            })
+
+
+        </script>
+ </body>
+</html>
