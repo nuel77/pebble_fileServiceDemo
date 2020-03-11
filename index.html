@@ -326,7 +326,7 @@ The above copyright notice and this permission notice shall be included in all c
           })
         })
 
-      getvalues()
+  
     })
 
     document.getElementById('downloadForm').addEventListener('submit',(e)=>{
@@ -338,7 +338,7 @@ The above copyright notice and this permission notice shall be included in all c
       fetch('/download',{
         method:'post',
         body:formData
-      }).then(resp => resp.blob())
+      }).then(resp => console.log(resp.blob()))
         .then(blob => {
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
