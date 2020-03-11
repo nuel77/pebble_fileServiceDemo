@@ -64,7 +64,7 @@ app.post('/upload', function(req, res) {
 
 //file download path
 
-app.post('/download',(req,res)=>{
+app.get('/download',(req,res)=>{
   let searchCID=req.body.searchName
 
   getfile(searchCID,(fileContents)=>{ 
