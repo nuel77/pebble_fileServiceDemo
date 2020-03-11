@@ -83,31 +83,18 @@ app.post('/download',(req,res)=>{
 
 })
 
-//ipfs gateway
 
-//to download from ipfs
-// async function getfile(cid){
-//   for await(const file of ipfs_api.files.get(cid)){
-//     console.log(file.path)
-//     const content=new BufferList()
-//     for await(const chunk of file.content){
-//       content.append(chunk)
-//     }
-//     console.log(content.toString())
-//     return content
-//   }
-// }
 
 async function getfile(validCID,callback){
   for await (const file of ipfs_api.get(validCID)) {
     console.log(file.path)
-    const content =[]
-    for await (const chunk of file.content) {
-      content.push(chunk)
-    }
-    let buff=Buffer.concat(content)
+    // const content =[]
+    // for await (const chunk of file.content) {
+    //   content.push(chunk)
+    // }
+    // let buff=Buffer.concat(content)
     console.log(content.type)
-    return callback(buff)
+    return callback(file.content)
   }
 
 
