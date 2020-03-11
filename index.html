@@ -338,8 +338,7 @@ The above copyright notice and this permission notice shall be included in all c
       fetch('/download',{
         method:'post',
         body:formData
-      }).then(resp => console.log(resp))
-        .then(blob => {
+      }) .then(blob => {
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.style.display = 'none';
@@ -351,7 +350,7 @@ The above copyright notice and this permission notice shall be included in all c
           window.URL.revokeObjectURL(url);
           alert('your file has downloaded!'); // or you know, something with better UX...
         })
-        .catch(() => alert('oh no!'));
+        .catch(() => alert('oh no!'))
     
     
   
