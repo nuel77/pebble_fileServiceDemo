@@ -68,6 +68,8 @@ app.post('/download',(req,res)=>{
   let searchCID=req.body.searchName
 
   getfile(searchCID,(fileContents)=>{ 
+
+
     getGautham(searchCID,(response)=>{
       let currentState = response.getCurrentstate()
       currentState=Buffer.from(currentState, 'base64').toString()
@@ -86,15 +88,15 @@ app.post('/download',(req,res)=>{
 
 
 async function getfile(validCID,callback){
-  for await (const file of ipfs_api.get(validCID)) {
+  for await (const file of ipfs_api.cat(validCID)) {
     console.log(file.path)
-    // const content =[]
-    // for await (const chunk of file.content) {
-    //   content.push(chunk)
-    // }
+    const content =[]
+    for await (const chunk of file.content) {
+      content.push(chunk)
+    }
     // let buff=Buffer.concat(content)
-    console.log(content.type)
-    return callback(file.content)
+    //console.log(content.type)
+    return callback(Buffer.concat(content))
   }
 
 
@@ -141,6 +143,8 @@ async function addf(filepath,callback,filename,contentType){
 }
 async function getGautham(cid,callback){
   const request = new dataStr.addressCreation()
+  console.log(cid)
+  console.log(typof(cid))
   request.setAuthpublickey(cid)
   request.setContractid("DEMO")
   request.setChannelid("PEBBLE_INC")
@@ -169,6 +173,7 @@ function callGautham(cid,datetime,filename,contentType,callback){
   request.setContractid("DEMO")
   request.setChannelid("PEBBLE_INC")
   request.setUniqueIdentifier("")
+  console.log(typeof(cid))
   request.setAuthpublickey(cid)
   client.createAddress(request,(error,response)=>{
       if(!error){
