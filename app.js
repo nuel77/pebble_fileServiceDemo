@@ -74,6 +74,7 @@ app.post('/download',(req,res)=>{
       currentState=JSON.parse(currentState)
     res.set('Content-disposition', 'attachment; filename=' + currentState["filename"]);
     res.set('Content-Type', currentState["contentType"]);
+    res.set('PebbleData',currentState)
     // res.json(tmpjson)
     // res.append('name',currentState["filename"] );
     // res.append('content',currentState["contentType"])

@@ -340,7 +340,9 @@ The above copyright notice and this permission notice shall be included in all c
         body:formData
       }).then((res)=>{
         for (var pair of res.headers.entries()){
-          console.log(pair[0]+":"+pair[1])
+          if (pair[0] == "content-type"){
+            document.getElementById('fileName').innerHTML=pair[1]
+          }
         }
         const reader = res.body.getReader()
         return new ReadableStream({
