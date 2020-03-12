@@ -335,12 +335,15 @@ The above copyright notice and this permission notice shall be included in all c
       }).then((res)=>{
         for (var pair of res.headers.entries()){
           if (pair[0] == "content-type"){
+            document.getElementById('cid').innerHTML=""
             document.getElementById('cid').innerHTML=pair[1]
           }
           if(pair[0]=="PebbleDate"){
+            document.getElementById('time').innerHTML=""
              document.getElementById('time').innerHTML=pair[1]
           }
           if(pair[0]=="fileName"){
+            document.getElementById('fileName').innerHTML=""
             document.getElementById('fileName').innerHTML=pair[1]
           }
 
@@ -366,7 +369,7 @@ The above copyright notice and this permission notice shall be included in all c
       .then(response => response.blob())
       .then(blob => {
 
-          download(blob,document.getElementById('fileName').text,document.getElementById('cid').text)
+          download(blob , document.getElementById('fileName').innerHTML,  document.getElementById('cid').innerHTML)
           
       })
     })
