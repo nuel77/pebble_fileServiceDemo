@@ -73,7 +73,7 @@ app.post('/download',(req,res)=>{
       currentState=Buffer.from(currentState, 'base64').toString()
       currentState=JSON.parse(currentState)
 
-    res.set('Content-disposition', 'attachment; filename=' + currentState["filename"]);
+    res.set('content-disposition', 'attachment; filename=' + currentState["filename"]);
     res.set('Content-Type', currentState["contentType"]);
     //console.log(res)
     fileContents.on('end',()=>res.end())
