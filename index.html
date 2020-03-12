@@ -226,7 +226,7 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="card">
               
               <div class="card-header">
-                <h4 class="card-title" id="title"><center>Last IPFS Uploaded File Details</center></h4>
+                <h4 class="card-title" id="title"><center>Uploaded File Details</center></h4>
               
               </div>
               <hr>
@@ -237,15 +237,15 @@ The above copyright notice and this permission notice shall be included in all c
                   <tbody>
                     <tr>
                       <th>File Name :</th>
-                      <td id='fileName'> </td>
+                      <td id='fileName'><center> Select file to Upload</center></td>
                     </tr>
                     <tr>
                       <th class="col-md-4" id="cidName">CID :</th>
-                      <td  style="color:green; " id="cid">  </td>          
+                      <td  style="color:green; " id="cid"><center> File not Selected</center> </td>          
                     </tr>
                     <tr>
                       <th>Time :</th>
-                      <td id='time'> </td>
+                      <td id='time'><center>File not Selected</center></td>
                     </tr>                  
                   </tbody>
                 </table>
@@ -327,6 +327,7 @@ The above copyright notice and this permission notice shall be included in all c
 
     document.getElementById('downloadForm').addEventListener('submit',(e)=>{
       e.preventDefault()
+      Swal.showLoading()
       const formData=new FormData()
       let val=document.getElementById("sName").value
       formData.append('searchName',val)
@@ -375,8 +376,19 @@ The above copyright notice and this permission notice shall be included in all c
       .then(blob => {
 
           download(blob , document.getElementById('fileName').innerHTML,  document.getElementById('cid').innerHTML)
-          
+          Swal.fire({
+          title: `File Downloaded`,
+          text: "Thanks for Trying Pebble Blockchain File Storage Demo",
+          icon:"success"
+          })
       })
+      .catch((err)=>{
+          Swal.fire({
+          title: `Error Finding File`,
+          text: "Sorry, We could not find the file searched",
+          icon:"error"
+          })
+        })
     })
     
 
