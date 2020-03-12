@@ -237,26 +237,20 @@ The above copyright notice and this permission notice shall be included in all c
                   <tbody>
                     <tr>
                       <div class="row">
-                      <th class="col-md-4">File Name :</th>
-                      <td class="col-md-8"  id='fileName' style="text-align: left; width: max-content;" nowarp> Select file to Upload</td>
+                      <th >File Name :</th>
+                      <td class="col-md-10"  id='fileName' style="text-align: left; width: max-content;"> --</td>
                     </div>
                     </tr>
                     <tr>
                       <div class="row">
-                      <th class="col-md-4"  >CID :</th>
-                      <td  class="col-md-8" style="color:green; text-align: left; width: fit-content;" id="cid" nowarp> -- </td> 
+                      <th class="col-md-2" id="cidName" >CID :</th>
+                      <td  class="col-md-10" style="color:green; text-align: left; width: fit-content;" id="cid"> -- </td> 
                     </div>         
                     </tr>
                     <tr>
                       <div class="row">
-                      <th class="col-md-4" >Time :</th>
-                      <td class="col-md-8"  id='time' style="text-align: left; width: max-content;" nowarp> -- </td>
-                    </div>  
-                    </tr> 
-                    <tr>
-                      <div class="row">
-                      <th class="col-md-4" id="filetype" ></th>
-                      <td class="col-md-8"  id='detfiletype' style="text-align: left; width: max-content;" nowarp> </td>
+                      <th>Time :</th>
+                      <td class="col-md-8"  id='time' style="text-align: left; width: max-content;"> -- </td>
                     </div>  
                     </tr>                  
                   </tbody>
@@ -351,22 +345,19 @@ The above copyright notice and this permission notice shall be included in all c
         document.getElementById('title').innerHTML="<center>Search Results</center>"
         for (var pair of res.headers.entries()){
           if (pair[0] == "content-type"){
-            document.getElementById('filetype').innerHTML="Detected File Type"
+            document.getElementById('cidName').innerHTML="Detected File Type"
           
-            document.getElementById('detfiletype').innerHTML=pair[1]
+            document.getElementById('cid').innerHTML=pair[1]
           }
           if(pair[0]=="pebbledate"){
             
              document.getElementById('time').innerHTML=pair[1]
           }
           if(pair[0]=="filename"){
-        
+            
+            console.log(pair[1])
             document.getElementById('fileName').innerHTML=pair[1]
           }
-          if(pair[0]=="cid"){
-        
-        document.getElementById('cid').innerHTML=pair[1]
-      }
 
           console.log(pair[0]+":"+pair)
         }
