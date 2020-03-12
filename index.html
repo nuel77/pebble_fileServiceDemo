@@ -237,15 +237,15 @@ The above copyright notice and this permission notice shall be included in all c
                   <tbody>
                     <tr>
                       <th>File Name :</th>
-                      <td id='fileName' align="center"> Select file to Upload</td>
+                      <td id='fileName' align="left"> Select file to Upload</td>
                     </tr>
                     <tr>
                       <th class="col-md-4" id="cidName">CID :</th>
-                      <td  style="color:green; " id="cid" align="center"> -- </td>          
+                      <td  style="color:green; " id="cid" align="left"> -- </td>          
                     </tr>
                     <tr>
                       <th>Time :</th>
-                      <td id='time' align="center"> -- </td>
+                      <td id='time' align="left"> -- </td>
                     </tr>                  
                   </tbody>
                 </table>
@@ -340,15 +340,15 @@ The above copyright notice and this permission notice shall be included in all c
         for (var pair of res.headers.entries()){
           if (pair[0] == "content-type"){
             document.getElementById('cidName').innerHTML="Detected File Type"
-            document.getElementById('cid').innerHTML=""
+          
             document.getElementById('cid').innerHTML=pair[1]
           }
           if(pair[0]=="pebbledate"){
-            document.getElementById('time').innerHTML=""
+            
              document.getElementById('time').innerHTML=pair[1]
           }
           if(pair[0]=="filename"){
-            document.getElementById('fileName').innerHTML=""
+            
             console.log(pair[1])
             document.getElementById('fileName').innerHTML=pair[1]
           }
