@@ -343,6 +343,7 @@ The above copyright notice and this permission notice shall be included in all c
           if (pair[0] == "content-type"){
             document.getElementById('fileName').innerHTML=pair[1]
           }
+          console.log(pair[0]+":"+pair[1])
         }
         const reader = res.body.getReader()
         return new ReadableStream({
