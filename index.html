@@ -226,7 +226,7 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="card">
               
               <div class="card-header">
-                <h4 class="card-title"><center>Last IPFS Uploaded File Details</center></h4>
+                <h4 class="card-title" id="title"><center>Last IPFS Uploaded File Details</center></h4>
               
               </div>
               <hr>
@@ -240,7 +240,7 @@ The above copyright notice and this permission notice shall be included in all c
                       <td id='fileName'> </td>
                     </tr>
                     <tr>
-                      <th class="col-md-4" >CID :</th>
+                      <th class="col-md-4" id="cidName">CID :</th>
                       <td  style="color:green; " id="cid">  </td>          
                     </tr>
                     <tr>
@@ -303,8 +303,10 @@ The above copyright notice and this permission notice shall be included in all c
         body:formData
       }).then((res) => res.json())  
             .then((data) =>  {
-              console.log(data)    
-              document.getElementById('fileName').innerHTML=data.name    
+              console.log(data) 
+              document.getElementById('title').innerHTML="<center>Uploaded File Details</center>"
+              document.getElementById('fileName').innerHTML=data.name
+              document.getElementById('cidName').innerHTML="CID"   
               document.getElementById("cid").innerHTML=data.cid
               document.getElementById("time").innerHTML=data.time
                 Swal.fire({
@@ -333,8 +335,10 @@ The above copyright notice and this permission notice shall be included in all c
         method:'post',
         body:formData
       }).then((res)=>{
+        document.getElementById('title').innerHTML="<center>Search Results</center>"
         for (var pair of res.headers.entries()){
           if (pair[0] == "content-type"){
+            document.getElementById('cidName').innerHTML="Detected File Type"
             document.getElementById('cid').innerHTML=""
             document.getElementById('cid').innerHTML=pair[1]
           }
