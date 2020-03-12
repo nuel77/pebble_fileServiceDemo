@@ -238,12 +238,12 @@ The above copyright notice and this permission notice shall be included in all c
                     <tr>
                       <div class="row">
                       <th >File Name :</th>
-                      <td class="col-md-10"  id='fileName' style="text-align: left; width: max-content;"> --</td>
+                      <td class="col-md-10"  id='fileName' style="text-align: left; width: max-content;">--</td>
                     </div>
                     </tr>
                     <tr>
                       <div class="row">
-                      <th class="col-md-2"  >FingerPrint :</th>
+                      <th class="col-md-2" id="cidName" >FingerPrint :</th>
                       <td  class="col-md-10" style="color:green; text-align: left; width: fit-content;" id="cid"> -- </td> 
                     </div>         
                     </tr>
@@ -345,7 +345,7 @@ The above copyright notice and this permission notice shall be included in all c
         document.getElementById('title').innerHTML="<center>Search Results</center>"
         for (var pair of res.headers.entries()){
           if (pair[0] == "cid"){
-           
+          
           
             document.getElementById('cid').innerHTML=pair[1]
           }
