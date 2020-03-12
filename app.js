@@ -34,6 +34,9 @@ app.get("/",(req,res)=>{
 app.get("/fetch",(req,res)=>{
   res.send("everyting allright here man")
 })
+app.get("/bitcoin",(req,res)=>{
+  res.sendFile(__dirname+'/bitcoin.html')
+})
 
 
 
