@@ -339,9 +339,26 @@ The above copyright notice and this permission notice shall be included in all c
         method:'post',
         body:formData
       }).then((res)=>{
-        console.log(res)
-        console.log(res.body)
-          download(res.body,'example.txt','text/plain')
+        const reader = res.body.getReader()
+        return new ReadableStream({
+          start(controller){
+            return pump();
+            function pump(){
+              return reader.read().then(({done,value})=>{
+                if(done){
+                  controller.close();
+                  return;
+                }
+                controller.enqueue(value);
+                return pump();
+              });
+            }
+          }
+        })
+      }).then(stream => new Response(stream))
+      .then(response => response.blob())
+      .then(blob => {
+          download(blob,'example.txt','text/plain')
           alert('your file has downloaded!');
       })
     })
