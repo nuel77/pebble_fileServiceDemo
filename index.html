@@ -339,8 +339,7 @@ The above copyright notice and this permission notice shall be included in all c
         method:'post',
         body:formData
       }).then((res)=>{
-        const fileName=res.name
-        const contentType=res.content
+        
         const reader = res.body.getReader()
         return new ReadableStream({
           start(controller){
@@ -360,6 +359,9 @@ The above copyright notice and this permission notice shall be included in all c
       }).then(stream => new Response(stream))
       .then(response => response.blob())
       .then(blob => {
+        let fileName=res.name
+        let contentType=res.content
+        console.log(res.content)
           download(blob,fileName,contentType)
           alert('your file has downloaded!');
       })
