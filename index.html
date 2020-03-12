@@ -341,6 +341,16 @@ The above copyright notice and this permission notice shall be included in all c
       }).then((res)=>{
         console.log(res)
         console.log(res.blob)
+        const url = window.URL.createObjectURL(res.blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          // the filename you want
+          a.download = 'file';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          alert('your file has downloaded!');
       })
     })
     
