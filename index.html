@@ -243,7 +243,7 @@ The above copyright notice and this permission notice shall be included in all c
                     </tr>
                     <tr>
                       <div class="row">
-                      <th class="col-md-2" id="cidName" >CID :</th>
+                      <th class="col-md-2"  >FingerPrint :</th>
                       <td  class="col-md-10" style="color:green; text-align: left; width: fit-content;" id="cid"> -- </td> 
                     </div>         
                     </tr>
@@ -344,8 +344,8 @@ The above copyright notice and this permission notice shall be included in all c
       }).then((res)=>{
         document.getElementById('title').innerHTML="<center>Search Results</center>"
         for (var pair of res.headers.entries()){
-          if (pair[0] == "content-type"){
-            document.getElementById('cidName').innerHTML="Detected File Type"
+          if (pair[0] == "cid"){
+           
           
             document.getElementById('cid').innerHTML=pair[1]
           }
