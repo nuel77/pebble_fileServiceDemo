@@ -339,7 +339,7 @@ The above copyright notice and this permission notice shall be included in all c
         method:'post',
         body:formData
       }).then((res)=>{
-        for (var pair of response.headers.entries()){
+        for (var pair of res.headers.entries()){
           console.log(pair[0]+":"+pair[1])
         }
         const reader = res.body.getReader()
