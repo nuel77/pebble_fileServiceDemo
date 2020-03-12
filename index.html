@@ -275,18 +275,17 @@ The above copyright notice and this permission notice shall be included in all c
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>
   <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <script src="app.js"></script>
+ 
   <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+
   <!-- Chart JS -->
-  <script src="assets/js/plugins/chartjs.min.js"></script>
+  
   <!--  Notifications Plugin    -->
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 
-  <script language="JavaScript" type="text/javascript" src="ecdsa.js"></script>
   <script src="assets/demo/demo.js"></script>
 
   <script>
@@ -338,7 +337,8 @@ The above copyright notice and this permission notice shall be included in all c
       fetch('/download',{
         method:'post',
         body:formData
-      }) .then(blob => {
+      }).then(resp => console.log(resp.blob()))
+        .then(blob => {
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.style.display = 'none';
@@ -350,7 +350,7 @@ The above copyright notice and this permission notice shall be included in all c
           window.URL.revokeObjectURL(url);
           alert('your file has downloaded!'); // or you know, something with better UX...
         })
-        .catch(() => alert('oh no!'))
+        .catch(() => alert('oh no!'));
     
     
   
