@@ -365,8 +365,9 @@ The above copyright notice and this permission notice shall be included in all c
       }).then(stream => new Response(stream))
       .then(response => response.blob())
       .then(blob => {
-          download(blob,'example.txt','text/plain')
-          alert('your file has downloaded!');
+
+          download(blob,document.getElementById('fileName').text,document.getElementById('cid').text)
+          
       })
     })
     
