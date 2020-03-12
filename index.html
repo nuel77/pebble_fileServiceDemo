@@ -92,14 +92,16 @@
           <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h5>Introducing The Pebble Network</h5>
+              <h5>Introducing The Pebble Network</h5>            
             </div>
+            <hr>
             <div class="pl-3"> 
               <p style="font-size: small;">Pebble Distributed Ledger Technology is the next generation enterprise-grade blockchain network, and we provide an ecosystem for businesses to build blockchain solutions without having any hassle and allowing them to focus on improving their business.</p>
               
               <p style="font-size: small;">Pebble File Storage Demo is made on top of Pebble network, showing a way to store, share and fingerprint agreements,contracts, notices... on the blockchain.</p>
                 
                 <p style="font-size: small;">Share the Fingerprint with your peers for them to download the file.</p>
+                <br>
             </div>  
           </div>
         </div>
@@ -183,7 +185,7 @@
               <hr>
 
               <div class="card-body">
-                
+                <div class="table-responsive" style="overflow-y: hidden;">
                 <table class="table table-borderless table-striped" >
                   <tbody>
                     <tr>
@@ -206,6 +208,7 @@
                     </tr>                  
                   </tbody>
                 </table>
+              </div>
               </div>
               <div class="card-footer">
                 <hr>
@@ -257,7 +260,7 @@
               console.log(data) 
               document.getElementById('title').innerHTML="<center>Uploaded File Details</center>"
               document.getElementById('fileName').innerHTML=data.name
-              document.getElementById('cidName').innerHTML="CID"   
+              document.getElementById('cidName').innerHTML="FingerPrint :"   
               document.getElementById("cid").innerHTML=data.cid
               document.getElementById("time").innerHTML=data.time
                 Swal.fire({
