@@ -241,18 +241,12 @@ The above copyright notice and this permission notice shall be included in all c
                     </tr>
                     <tr>
                       <th class="col-md-4" >CID :</th>
-                      <td  style="color:green; " id="cid">  </td>
-                    
-           
+                      <td  style="color:green; " id="cid">  </td>          
                     </tr>
                     <tr>
                       <th>Time :</th>
                       <td id='time'> </td>
-                    </tr>
-             
-                  
-              
-                   
+                    </tr>                  
                   </tbody>
                 </table>
               </div>
@@ -341,9 +335,16 @@ The above copyright notice and this permission notice shall be included in all c
       }).then((res)=>{
         for (var pair of res.headers.entries()){
           if (pair[0] == "content-type"){
+            document.getElementById('cid').innerHTML=pair[1]
+          }
+          if(pair[0]=="PebbleDate"){
+             document.getElementById('time').innerHTML=pair[1]
+          }
+          if(pair[0]=="fileName"){
             document.getElementById('fileName').innerHTML=pair[1]
           }
-          console.log(pair[0]+":"+pair[1])
+
+          console.log(pair[0]+":"+pair)
         }
         const reader = res.body.getReader()
         return new ReadableStream({
