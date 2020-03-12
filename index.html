@@ -285,7 +285,7 @@ The above copyright notice and this permission notice shall be included in all c
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-
+  <script src="downloadjs.js"></script>
   <script language="JavaScript" type="text/javascript" src="ecdsa.js"></script>
   <script src="assets/demo/demo.js"></script>
 
@@ -326,7 +326,7 @@ The above copyright notice and this permission notice shall be included in all c
           })
         })
 
-      getvalues()
+   
     })
 
     document.getElementById('downloadForm').addEventListener('submit',(e)=>{
@@ -341,15 +341,7 @@ The above copyright notice and this permission notice shall be included in all c
       }).then((res)=>{
         console.log(res)
         console.log(res.blob)
-        const url = window.URL.createObjectURL(res.blob);
-          const a = document.createElement('a');
-          a.style.display = 'none';
-          a.href = url;
-          // the filename you want
-          a.download = 'file';
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
+          download(res.blob,'example.txt','text/plain')
           alert('your file has downloaded!');
       })
     })
