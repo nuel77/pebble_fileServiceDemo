@@ -342,7 +342,8 @@ The above copyright notice and this permission notice shall be included in all c
         let fileName=res.name
         let contentType=res.content
         const reader = res.body.getReader()
-        return fileName,contentType,new ReadableStream({
+        
+        let temp=new ReadableStream({
           start(controller){
             return pump();
             function pump(){
@@ -357,8 +358,10 @@ The above copyright notice and this permission notice shall be included in all c
             }
           }
         })
+        return fileName,contentType,temp
       }).then((filename,content,stream) => {
-        return filename,content,new Response(stream)
+        let Resp=new Response(stream)
+        return filename,content,Resp
       })
       .then((filename,content,response) => {
 
