@@ -339,11 +339,9 @@ The above copyright notice and this permission notice shall be included in all c
         method:'post',
         body:formData
       }).then((res)=>{
-        let fileName=res.name
-        let contentType=res.content
+        document.getElementById('fileName').innerHTML=res.name
         const reader = res.body.getReader()
-        
-        let temp=new ReadableStream({
+        return new ReadableStream({
           start(controller){
             return pump();
             function pump(){
@@ -358,19 +356,10 @@ The above copyright notice and this permission notice shall be included in all c
             }
           }
         })
-        return fileName,contentType,temp
-      }).then((filename,content,stream) => {
-        let Resp=new Response(stream)
-        return filename,content,Resp
-      })
-      .then((filename,content,response) => {
-
-        return filename,content,response.blob()
-      })
-      .then((filename,content,blob) => {
-        
-        console.log(content)
-          download(blob,filename,content)
+      }).then(stream => new Response(stream))
+      .then(response => response.blob())
+      .then(blob => {
+          download(blob,'example.txt','text/plain')
           alert('your file has downloaded!');
       })
     })
