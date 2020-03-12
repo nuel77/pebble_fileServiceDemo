@@ -339,7 +339,8 @@ The above copyright notice and this permission notice shall be included in all c
         method:'post',
         body:formData
       }).then((res)=>{
-        document.getElementById('fileName').innerHTML=res.name
+        console.log(res.json())
+        // document.getElementById('fileName').innerHTML=res.json
         const reader = res.body.getReader()
         return new ReadableStream({
           start(controller){
