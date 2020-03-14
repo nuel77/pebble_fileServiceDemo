@@ -293,8 +293,8 @@
       let val=document.getElementById("sName").value
       if(!val.includes("Qm")){
         Swal.fire({
-          title: `Error Finding File`,
-          text: "Sorry, We could not find the file searched",
+          title: `Invalid File Fingerprint`,
+          text: "Please Enter a Valid fingerprint ",
           icon:"error"
           })
       }
@@ -306,7 +306,7 @@
         body:formData
       }).then((res)=>{
         if(res.status == 400){
-          throw res
+          throw new Error(res)
           }
         
         else{
@@ -355,27 +355,27 @@
           icon:"error"
           })
       }).then(stream => new Response(stream))
-      .then(response => response.blob())
-      .then(blob => {
+        .then(response => response.blob())
+        .then(blob => {
 
-          download(blob , document.getElementById('fileName').innerHTML,  document.getElementById('cid').innerHTML)
-          Swal.fire({
-          title: `File Downloaded`,
-          text: "Thanks for Trying Pebble Blockchain File Storage Demo",
-          icon:"success"
-          })
-      })
-      .catch((err)=>{
-          Swal.fire({
-          title: `Error Finding File`,
-          text: "Sorry, We could not find the file searched",
-          icon:"error"
-          })
+            download(blob , document.getElementById('fileName').innerHTML,  document.getElementById('cid').innerHTML)
+            Swal.fire({
+            title: `File Downloaded`,
+            text: "Thanks for Trying Pebble Blockchain File Storage Demo",
+            icon:"success"
+            })
         })
-      }
+        .catch((err)=>{
+            Swal.fire({
+            title: `Error Finding File`,
+            text: "Sorry, We could not find the file searched",
+            icon:"error"
+            })
+          })
+        }
+        
+      })
       
-    })
-    
     
 
  
