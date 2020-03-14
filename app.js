@@ -70,23 +70,28 @@ app.post('/upload', function(req, res) {
 app.post('/download',(req,res)=>{
   let searchCID=req.body.searchName
 
-  getfile(searchCID,(fileContents)=>{ 
-    getGautham(searchCID,(response)=>{
-      let currentState = response.getCurrentstate()     
-      currentState=Buffer.from(currentState, 'base64').toString()
-      currentState=JSON.parse(currentState)
-    res.set('Content-disposition', 'attachment; filename=' + currentState["filename"]);
-    res.set('Content-Type', currentState["contentType"]);
-    res.set('PebbleDate',currentState["time"])
-    res.set('fileName',currentState["filename"])
-    res.set('cid',currentState["cid"])
-    // res.json(tmpjson)
-    // res.append('name',currentState["filename"] );
-    // res.append('content',currentState["contentType"])
-    //console.log(res)
-    fileContents.on('end',()=>res.end())
-    fileContents.pipe(res)
-    })
+  getfile(searchCID,(fileContents,err)=>{ 
+    if(err == null){
+      getGautham(searchCID,(response)=>{
+        let currentState = response.getCurrentstate()     
+        currentState=Buffer.from(currentState, 'base64').toString()
+        currentState=JSON.parse(currentState)
+      res.set('Content-disposition', 'attachment; filename=' + currentState["filename"]);
+      res.set('Content-Type', currentState["contentType"]);
+      res.set('PebbleDate',currentState["time"])
+      res.set('fileName',currentState["filename"])
+      res.set('cid',currentState["cid"])
+      // res.json(tmpjson)
+      // res.append('name',currentState["filename"] );
+      // res.append('content',currentState["contentType"])
+      //console.log(res)
+      fileContents.on('end',()=>res.end())
+      fileContents.pipe(res)
+      })
+    }
+    else {
+      res.status(400).send(err)
+    }
 
   })
   
@@ -96,6 +101,7 @@ app.post('/download',(req,res)=>{
 
 
 async function getfile(validCID,callback){
+  try{
   for await (const file of ipfs_api.get(validCID)) {
     console.log(file.path)
     const content = new BufferListStream()
@@ -104,7 +110,11 @@ async function getfile(validCID,callback){
     }
     // let buff=Buffer.concat(content)
     //console.log(content.type)
-    return callback(content)
+    return callback(content,null)
+  }
+  
+  }catch (err){
+    return callback(null,err)
   }
 
 
