@@ -284,6 +284,14 @@
       Swal.showLoading()
       const formData=new FormData()
       let val=document.getElementById("sName").value
+      if(!val.includes("Qm")){
+        Swal.fire({
+          title: `Error Finding File`,
+          text: "Sorry, We could not find the file searched",
+          icon:"error"
+          })
+      }
+      else{
       formData.append('searchName',val)
       
       fetch('/download',{
@@ -343,7 +351,10 @@
           icon:"error"
           })
         })
+      }
+      
     })
+    
     
 
  
