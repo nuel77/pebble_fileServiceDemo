@@ -306,7 +306,7 @@
         body:formData
       }).then((res)=>{
         if(res.status == 400){
-          throw new Error(res)
+          throw new Error("error")
           }
         
         else{
@@ -355,7 +355,19 @@
           icon:"error"
           })
       }).then(stream => new Response(stream))
+      .catch(err=>{
+        Swal.fire({
+          title: `Invalid File Fingerprint`,
+          text: "Sorry, We could not find the file searched",
+          icon:"error"
+          })
         .then(response => response.blob())
+        .catch(err=>{
+        Swal.fire({
+          title: `Invalid File Fingerprint`,
+          text: "Sorry, We could not find the file searched",
+          icon:"error"
+          })
         .then(blob => {
 
             download(blob , document.getElementById('fileName').innerHTML,  document.getElementById('cid').innerHTML)
@@ -365,6 +377,7 @@
             icon:"success"
             })
         })
+        
         .catch((err)=>{
             Swal.fire({
             title: `Error Finding File`,
