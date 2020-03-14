@@ -289,10 +289,10 @@
     })
 
     document.getElementById('downloadForm').addEventListener('submit',(e)=>{
-      e.preventDefault()
-      Swal.showLoading()
-      const formData=new FormData()
-      let val=document.getElementById("sName").value
+      e.preventDefault();
+      Swal.showLoading();
+      const formData=new FormData();
+      let val=document.getElementById("sName").value;
       if(!val.includes("Qm")){
         Swal.fire({
           title: `Invalid File Fingerprint`,
@@ -301,8 +301,8 @@
           })
       }
       else{
-      formData.append('searchName',val)
-      
+      formData.append('searchName',val);
+      let ExecuteFlag = false;
       fetch('/download',{
         method:'post',
         body:formData
@@ -310,51 +310,65 @@
         if(res.status == 400){
           throw new Error("error")
           }
-        
-        else {
-          console.log(res)
-          document.getElementById('title').innerHTML = "<center>Search Results</center>"
-          for (var pair of res.headers.entries()) {
-            if (pair[0] == "cid") {
+        else{
+          console.log(res);
+          ExecuteFlag = true;
+        document.getElementById('title').innerHTML="<center>Search Results</center>"
+        for (var pair of res.headers.entries()){
+          if (pair[0] == "cid"){
 
 
-              document.getElementById('cid').innerHTML = pair[1]
-            }
-            if (pair[0] == "pebbledate") {
-
-              document.getElementById('time').innerHTML = pair[1]
-            }
-            if (pair[0] == "filename") {
-
-              console.log(pair[1])
-              document.getElementById('fileName').innerHTML = pair[1]
-            }
-
-            console.log(pair[0] + ":" + pair)
+            document.getElementById('cid').innerHTML=pair[1]
           }
-          const reader = res.body.getReader()
-          let tmp = (new Response(new ReadableStream({
-            start(controller) {
-              return pump();
+          if(pair[0]=="pebbledate"){
 
-              function pump() {
-                return reader.read().then(({done, value}) => {
-                  if (done) {
-                    controller.close();
-                    return;
-                  }
-                  controller.enqueue(value);
-                  return pump();
-                });
-              }
+             document.getElementById('time').innerHTML=pair[1]
+          }
+          if(pair[0]=="filename"){
+
+            console.log(pair[1])
+            document.getElementById('fileName').innerHTML=pair[1]
+          }
+
+          console.log(pair[0]+":"+pair)
+        }
+        const reader = res.body.getReader();
+        return new ReadableStream({
+          start(controller){
+            return pump();
+            function pump(){
+              return reader.read().then(({done,value})=>{
+                if(done){
+                  controller.close();
+                  return;
+                }
+                controller.enqueue(value);
+                return pump();
+              });
             }
-          }))).blob();
-          download(tmp, document.getElementById('fileName').innerHTML, document.getElementById('cid').innerHTML);
+          }
+        })
+        }
+
+      }).then(stream => new Response(stream))
+        .then(response => response.blob())
+        .then(blob => {
+
+            if (ExecuteFlag){
+              download(blob , document.getElementById('fileName').innerHTML,  document.getElementById('cid').innerHTML);
+              Swal.fire({
+                title: `File Downloaded`,
+                text: "Thanks for Trying Pebble Blockchain File Storage Demo",
+                icon:"success"
+              })
+            }
+        }).then(()=>{
+        if (!ExecuteFlag){
           Swal.fire({
-            title: `File Downloaded`,
-            text: "Thanks for Trying Pebble Blockchain File Storage Demo",
-            icon: "success"
-          });
+            title: `Invalid File Fingerprint`,
+            text: "Sorry, We could not find the file searched",
+            icon:"error"
+          })
         }
       }).catch((err)=>{
             Swal.fire({
@@ -366,6 +380,13 @@
         }
         
       })
+
+
+
+
+
+
+
   </script>
 </body>
 
