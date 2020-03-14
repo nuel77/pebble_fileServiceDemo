@@ -101,13 +101,15 @@
                   <div class="pl-3"> 
                     <p style="font-size:medium;">Pebble Distributed Ledger Technology is the next generation enterprise-grade blockchain network, and we provide an ecosystem for businesses to build blockchain solutions without having any hassle and allowing them to focus on improving their business.</p>
                     <p style="font-size: medium;">Pebble File Storage Demo made on top of Pebble network, showing a way to store, share and fingerprint agreements, contracts, notices... on the Blockchain.</p>
-                      <p style="font-size: medium;">Your File FingerPrint is a unique identifier for the contents of the file and is nique for each file uploaded.
+                      <p style="font-size: medium;">Your File FingerPrint is a unique identifier for the contents of the file and is unique for each file uploaded.
                         Share the File Fingerprint with your peers for them to download the file.</p>
                     </div>
                 
                     <hr>
                    <div class="card-footer">
-                     <p style="color:grey;">The Power Of Blockchain at your Fingertips by our Superfast Pebble network.</p>
+                     <p style="color:grey;">The power of Blockchain at your fingertips by our superfast Pebble network.
+
+                    </p>
                    </div>         
               </div>  
           </div>
@@ -309,76 +311,52 @@
           throw new Error("error")
           }
         
-        else{
+        else {
           console.log(res)
-        document.getElementById('title').innerHTML="<center>Search Results</center>"
-        for (var pair of res.headers.entries()){
-          if (pair[0] == "cid"){
-          
-          
-            document.getElementById('cid').innerHTML=pair[1]
-          }
-          if(pair[0]=="pebbledate"){
-            
-             document.getElementById('time').innerHTML=pair[1]
-          }
-          if(pair[0]=="filename"){
-            
-            console.log(pair[1])
-            document.getElementById('fileName').innerHTML=pair[1]
-          }
+          document.getElementById('title').innerHTML = "<center>Search Results</center>"
+          for (var pair of res.headers.entries()) {
+            if (pair[0] == "cid") {
 
-          console.log(pair[0]+":"+pair)
-        }
-        const reader = res.body.getReader()
-        return new ReadableStream({
-          start(controller){
-            return pump();
-            function pump(){
-              return reader.read().then(({done,value})=>{
-                if(done){
-                  controller.close();
-                  return;
-                }
-                controller.enqueue(value);
-                return pump();
-              });
+
+              document.getElementById('cid').innerHTML = pair[1]
             }
-          }
-        })
-        }
-        
-      }).catch(err=>{
-        Swal.fire({
-          title: `Invalid File Fingerprint`,
-          text: "Sorry, We could not find the file searched",
-          icon:"error"
-          })
-      }).then(stream => new Response(stream))
-      .catch(err=>{
-        Swal.fire({
-          title: `Invalid File Fingerprint`,
-          text: "Sorry, We could not find the file searched",
-          icon:"error"
-          })
-        .then(response => response.blob())
-        .catch(err=>{
-        Swal.fire({
-          title: `Invalid File Fingerprint`,
-          text: "Sorry, We could not find the file searched",
-          icon:"error"
-          })
-        .then(blob => {
+            if (pair[0] == "pebbledate") {
 
-            download(blob , document.getElementById('fileName').innerHTML,  document.getElementById('cid').innerHTML)
-            Swal.fire({
+              document.getElementById('time').innerHTML = pair[1]
+            }
+            if (pair[0] == "filename") {
+
+              console.log(pair[1])
+              document.getElementById('fileName').innerHTML = pair[1]
+            }
+
+            console.log(pair[0] + ":" + pair)
+          }
+          const reader = res.body.getReader()
+          let tmp = (new Response(new ReadableStream({
+            start(controller) {
+              return pump();
+
+              function pump() {
+                return reader.read().then(({done, value}) => {
+                  if (done) {
+                    controller.close();
+                    return;
+                  }
+                  controller.enqueue(value);
+                  return pump();
+                });
+              }
+            }
+          }))).blob();
+          download(tmp, document.getElementById('fileName').innerHTML, document.getElementById('cid').innerHTML);
+          Swal.fire({
             title: `File Downloaded`,
             text: "Thanks for Trying Pebble Blockchain File Storage Demo",
-            icon:"success"
-            })
-        })
-        
-        .catch((err)=>{
+            icon: "success"
+          });
+        }
+      }).catch((err)=>{
             Swal.fire({
             title: `Error Finding File`,
             text: "Sorry, We could not find the file searched",
@@ -388,13 +366,6 @@
         }
         
       })
-      
-    
-
- 
-
-
- 
   </script>
 </body>
 
