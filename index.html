@@ -298,6 +298,7 @@
         method:'post',
         body:formData
       }).then((res)=>{
+        console.log(res)
         document.getElementById('title').innerHTML="<center>Search Results</center>"
         for (var pair of res.headers.entries()){
           if (pair[0] == "cid"){
