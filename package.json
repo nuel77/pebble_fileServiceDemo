@@ -13,7 +13,7 @@
     "body-parser": "^1.19.0",
     "bs58": "^4.0.1",
     "express": "^4.17.1",
-    "express-fileupload": "^1.1.6",
+    "express-fileupload": "^1.1.9",
     "formidable": "^1.2.2",
     "fs-extra": "^8.1.0",
     "google-protobuf": "^3.11.4",
